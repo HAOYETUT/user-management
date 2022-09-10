@@ -2,19 +2,19 @@
     <div class="container" :class="{'sign-up-mode': signUpMode}">
         <div class="forms-container">
         <div class="signin-signup">
-          <form action="#" class="sign-in-form">
+          <el-form class="sign-in-form" :model="loginForm" ref="loginFormRef">
             <h2 class="title">登录</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="用户名" />
+              <input type="text" placeholder="管理员账号" v-model="loginForm.name"/>
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="密码" />
+              <input type="password" placeholder="密码" v-model="loginForm.password"/>
             </div>
-            <input type="submit" value="立即登录" class="btn solid" />
+            <el-button class="btn solid" :loading="signUpLoding" @click="loginGo('loginFormRef')">立即登录</el-button>
             <p class="social-text">通过其他方式</p>
-            <div class="social-media">
+            <div class="social-media"  @click="other()">
               <a href="#" class="social-icon">
                 <i class="fab fa-qq"></i>
               </a>
@@ -28,7 +28,8 @@
                 <i class="fab fa-alipay"></i>
               </a>
             </div>
-          </form>
+          </el-form>
+
           <form action="#" class="sign-up-form">
             <h2 class="title">注册</h2>
             <div class="input-field">
@@ -43,9 +44,9 @@
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="密码" />
             </div>
-            <input type="submit" class="btn" value="立即注册" />
-            <p class="social-text" @click="register()">通过其他方式</p>
-            <div class="social-media">
+            <el-button class="btn" @click="reference()">立即注册</el-button>
+            <p class="social-text">通过其他方式</p>
+            <div class="social-media"  @click="other()">
               <a href="#" class="social-icon">
                 <i class="fab fa-qq"></i>
               </a>
@@ -92,18 +93,71 @@
     </div>
 </template>
 
-<script>
-import { ref } from "vue"
+<script lang="ts">
+// ref toref torefs reactive
+import { ref, getCurrentInstance, reactive } from "vue"
+import { ElMessage } from 'element-plus'
+import { hideLoading, showLoading } from "@/utils/loading";
 export default {
     name: "LoginRegister",
     components: {},
     setup() {
+        const loginForm = reactive({
+          name: 'admin',
+          password: '123',
+        })
+
         const signUpMode = ref(false);
-        const register = () => {
-            debugger
-            ElMessage.error('请联系管理员注册!')
+
+        let signUpLoding = ref(false);
+
+        // @ts-ignore
+        const { ctx } = getCurrentInstance()
+
+        const reference = () => {
+          ElMessage.error('Please contact the administrator to register!')
         }
-        return { signUpMode, register }
+        
+        const other = () => {
+          ElMessage.error('Permission does not allow you to use!')
+        }
+
+        const loginGo = async (uy: string) => {
+          signUpLoding.value = true
+          showLoading()
+          const { name, password }= loginForm
+          if(name && password) {
+            setTimeout(()=>{
+                ElMessage.success('success')
+                signUpLoding.value = false
+                hideLoading()
+              },2000)
+          } else {
+            setTimeout(()=>{
+                ElMessage.warning('Please enter your account and password!')
+                signUpLoding.value = false
+              },2000)
+          }
+          
+          // await ctx.$refs[formLogin].validate((vaild: boolean)=> {
+          //   console.log(vaild)
+          //   if (vaild) {
+              
+              
+          //   } else {
+              
+          //   }
+          // })
+        }
+
+        return { 
+          signUpMode, 
+          reference, 
+          other, 
+          loginForm, 
+          loginGo, 
+          signUpLoding 
+        }
     }
 }
 </script>
@@ -155,6 +209,12 @@ form.sign-up-form {
 
 form.sign-in-form {
   z-index: 2;
+  /* box-shadow: 0 0 0 10px rgba(0, 0, 0, .2); */
+}
+
+form.sign-in-form:hover {
+  z-index: 2;
+  /* box-shadow: 3px 3px 3px rgba(0,0,0,0.2); */
 }
 
 .title {

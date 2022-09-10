@@ -4,12 +4,16 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/LoginRegister.vue')
+    component: () => import('../views/LoginRegister.vue')
+  },{
+    path: '/index',
+    name: 'Index',
+    component: () => import('../views/index.vue')
   },
   {
     path: '/:catchAll(.*)',
