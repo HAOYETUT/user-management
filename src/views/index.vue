@@ -2,7 +2,7 @@
     <div class="index common-layout">
     <el-container>
         <div >
-            <h5 class="mb-2" style="width:100%;text-align:center;height:50px;line-height: 50px;">超级管理系统</h5>
+            <h5 class="mb-2" style="width:100%;text-align:center;height:50px;line-height: 50px;">{{isCollapse?'管理系统':'小哪吒影音管理系统'}}</h5>
             <el-menu :default-active="menuIndex" :collapse="isCollapse" @select="menuSelect">
                 <template v-for="(item, index) in navigationDataList" :key="index">
                     <el-menu-item v-if="item.children.length == 0" :index="item.id" @click="routerPath(item.path)">
