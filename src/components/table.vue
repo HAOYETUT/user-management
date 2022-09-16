@@ -2,7 +2,7 @@
     <div class="table">
         <el-table
             ref="multipleTableRef"
-            loading="true"
+            :loading="loading"
             style="width: 100%;"
             :data="tableData"
             height="500"
@@ -46,17 +46,20 @@
 <script lang="ts">
 
 import { happenTimeFun } from '@/utils/index'
+import { ElLoading } from 'element-plus'
+import { ref } from 'vue'
 export default {
     components: {},
     props: ['tableData', 'column', 'tableSearch', 'tableButton', 'tableForm'],
     setup(props: any) {
         console.log(props,'props')
+        const loading = ref(true)
         const {tableData = [], column = []} = props as ({tableData: any[], column: any[]})
         
          const handleSelectionChange = () => {
 
          }
-        return {tableData, column, handleSelectionChange, happenTimeFun}
+        return {tableData, column, handleSelectionChange, happenTimeFun, loading}
     }
 }
 </script>
@@ -74,6 +77,9 @@ export default {
 /* :global {
 
 } */
+.example-showcase .el-loading-mask {
+  z-index: 9;
+}
 
 .table .el-table__body-wrapper {
     display: none !important;

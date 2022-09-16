@@ -64,6 +64,7 @@
 import { ref, onMounted } from 'vue'
 import { navigationData } from '@/utils/virtual-data'
 import router from '@/router'
+import { ElMessageBox } from 'element-plus'
 export default {
     name: "Index",
     components: {},
@@ -91,10 +92,14 @@ export default {
         })
 
         const loginOut = () => {
-            // 清空token
-            window.sessionStorage.clear()
-            // 跳转到登录页
-            router.push('/login')
+            ElMessageBox.confirm('你确定要退出登录吗?').then(() => {
+                // 清空token
+                window.sessionStorage.clear()
+                // 跳转到登录页
+                router.push('/login')
+            }).catch(() => {
+                // catch error
+            })
         }
 
         return { isCollapse, navigationDataList, navigationShow, circleUrl, menuSelect, menuIndex, routerPath, loginOut}
@@ -125,7 +130,7 @@ export default {
     height: 93%;
 }
 .el-menu {
-    /* border-right: 0; */
+    border-right: 0;
 }
 
 .dropdownRight .el-avatar--circle {
