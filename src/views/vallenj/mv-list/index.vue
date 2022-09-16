@@ -7,7 +7,7 @@
                         <el-input placeholder="请输入mv名"  v-model="formInline.name"/>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="onSearch">搜索</el-button>
+                        <el-button type="primary">搜索</el-button>
                     </el-form-item>
                 </el-col>
                 <el-col :span="6" class="operation-display">

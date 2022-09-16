@@ -77,7 +77,6 @@ export default {
         }
 
         const menuSelect = (index: any, path: any) => {
-            console.log(index,'index',path,'path')
             localStorage.setItem('menuId', JSON.stringify(index))
         }
 

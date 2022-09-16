@@ -163,12 +163,15 @@ export const usetableBtn = [
     {
         type: 'danger',
         text: '删除',
+        click: 'delete'
     }, {
         type: 'warning',
         text: '编辑',
+        click: 'edit'
     }, {
         type: 'primary',
         text: '新增',
+        click: 'add'
     }
 ]
 

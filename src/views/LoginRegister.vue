@@ -125,9 +125,9 @@ export default {
 
         const loginGo = async (uy: string) => {
           signUpLoding.value = true
-          showLoading()
           const { name, password }= loginForm
           if(name && password) {
+            showLoading()
             setTimeout(()=>{
                 ElMessage.success('success')
                 window.sessionStorage.setItem('token','sucess')
@@ -136,21 +136,10 @@ export default {
                 hideLoading()
               },2000)
           } else {
-            setTimeout(()=>{
-                ElMessage.warning('Please enter your account and password!')
-                signUpLoding.value = false
-              },2000)
+            ElMessage.warning('Please enter your account and password!')
+              signUpLoding.value = false
+              hideLoading()
           }
-          
-          // await ctx.$refs[formLogin].validate((vaild: boolean)=> {
-          //   console.log(vaild)
-          //   if (vaild) {
-              
-              
-          //   } else {
-              
-          //   }
-          // })
         }
 
         return { 
