@@ -13,7 +13,23 @@ const routes = [
   },{
     path: '/index',
     name: 'Index',
-    component: () => import('../views/index.vue')
+    component: () => import('../views/index.vue'),
+    redirect: '/use-ist',
+    children: [
+      {
+        path: '/use-ist',
+        name: 'useList',
+        component: () => import('../views/use/use-list/index.vue'),
+      }, {
+        path: '/mv-ist',
+        name: 'mvList',
+        component: () => import('../views/vallenj/mv-list/index.vue'),
+      }, {
+        path: '/song-ist',
+        name: 'songList',
+        component: () => import('../views/vallenj/song-list/index.vue'),
+      }
+    ]
   },
   {
     path: '/:catchAll(.*)',

@@ -98,6 +98,7 @@
 import { ref, getCurrentInstance, reactive } from "vue"
 import { ElMessage } from 'element-plus'
 import { hideLoading, showLoading } from "@/utils/loading";
+import router from "@/router";
 export default {
     name: "LoginRegister",
     components: {},
@@ -129,6 +130,8 @@ export default {
           if(name && password) {
             setTimeout(()=>{
                 ElMessage.success('success')
+                window.sessionStorage.setItem('token','sucess')
+                router.push('/index')
                 signUpLoding.value = false
                 hideLoading()
               },2000)

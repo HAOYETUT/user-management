@@ -1,76 +1,104 @@
 <template>
     <div class="index common-layout">
     <el-container>
-        <el-aside width="200px">
-            <h5 class="mb-2">超级管理系统</h5>
-            <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
-                @close="handleClose">
-                <el-sub-menu index="1">
-                    <template #title>
-                        <el-icon><location /></el-icon>
-                        <span>Navigator One</span>
-                    </template>
-                    <el-menu-item-group>
-                        <el-menu-item index="1-1">item one</el-menu-item>
-                        <el-menu-item index="1-2">item two</el-menu-item>
-                    </el-menu-item-group>
-                </el-sub-menu>
-                <el-menu-item index="2">
-                    <el-icon>
-                        <icon-menu />
-                    </el-icon>
-                    <template #title>Navigator Two</template>
-                </el-menu-item>
+        <div >
+            <h5 class="mb-2" style="width:100%;text-align:center;height:50px;line-height: 50px;">超级管理系统</h5>
+            <el-menu :default-active="menuIndex" :collapse="isCollapse" @select="menuSelect">
+                <template v-for="(item, index) in navigationDataList" :key="index">
+                    <el-menu-item v-if="item.children.length == 0" :index="item.id" @click="routerPath(item.path)">
+                        <el-icon>
+                            <component :is="item?.icon || 'Orange'"></component>
+                        </el-icon>
+                        <template #title>{{item?.title}}</template>
+                    </el-menu-item>
+                    <el-sub-menu v-if="item.children.length > 0" :index="item.id">
+                        <template #title>
+                            <el-icon>
+                                <component :is="item?.icon || 'Orange'"></component>
+                            </el-icon>
+                            <span>{{item?.title}}</span>
+                        </template>
+                        <el-menu-item-group v-for="(itemTwo, indexTwo) in item.children" :key="indexTwo">
+                            <template #title>
+                                <el-menu-item class="paddingLeft" :index="itemTwo.id" @click="routerPath(itemTwo.path)">{{itemTwo.title}}</el-menu-item>
+                            </template>
+                        </el-menu-item-group>
+                    </el-sub-menu>
+                </template>
             </el-menu>
-        </el-aside>
+        </div>
         <el-container>
             <el-header>
-                <el-menu
-                    :default-active="activeIndex"
-                    class="el-menu-demo"
-                    mode="horizontal"
-                    :ellipsis="false"
-                    @select="handleSelect"
-                >
-                    <el-menu-item index="0">LOGO</el-menu-item>
-                    <div class="flex-grow" />
-                    <el-menu-item index="1">Processing Center</el-menu-item>
-                    <el-sub-menu index="2">
-                    <template #title>Workspace</template>
-                    <el-menu-item index="2-1">item one</el-menu-item>
-                    <el-menu-item index="2-2">item two</el-menu-item>
-                    <el-menu-item index="2-3">item three</el-menu-item>
-                    <el-sub-menu index="2-4">
-                        <template #title>item four</template>
-                        <el-menu-item index="2-4-1">item one</el-menu-item>
-                        <el-menu-item index="2-4-2">item two</el-menu-item>
-                        <el-menu-item index="2-4-3">item three</el-menu-item>
-                    </el-sub-menu>
-                    </el-sub-menu>
-                </el-menu>
+                <el-icon :size="40" @click="navigationShow">
+                    <component :is="isCollapse ? 'Menu' : 'Grid'"></component>
+                </el-icon>
+                <el-dropdown :hide-on-click="false" class="dropdownRight">
+                    <el-avatar :size="50" :src="circleUrl" />
+                    <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item @click="loginOut">退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
             </el-header>
-            <el-main>Main</el-main>
-            <el-footer>Footer</el-footer>
+            <el-main>
+                <el-breadcrumb separator="/">
+                    <el-breadcrumb-item :to="{ path: './page-header.html' }">
+                    homepage
+                    </el-breadcrumb-item>
+                    <el-breadcrumb-item><a href="./page-header.html">route 1</a></el-breadcrumb-item>
+                    <el-breadcrumb-item>route 2</el-breadcrumb-item>
+                </el-breadcrumb>
+                <el-card class="box-card boxCard" style="margin-top: 10px;">
+                    <router-view/>
+                </el-card>
+            </el-main>
+            <!-- <el-footer>Footer</el-footer> -->
         </el-container>
     </el-container>
     </div>
 </template>
   
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { ref, onMounted } from 'vue'
+import { navigationData } from '@/utils/virtual-data'
+import router from '@/router'
 export default {
     name: "Index",
     components: {},
     setup() {
         const isCollapse = ref(false)
-        const handleOpen = (key, keyPath) => {
-            console.log(key, keyPath)
+        const circleUrl = 'https://img1.baidu.com/it/u=4216761644,15569246&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500'
+        const navigationDataList = JSON.parse(JSON.stringify(navigationData))
+        const menuIndex = ref('1')
+        const navigationShow = () => {
+            isCollapse.value = !isCollapse.value
         }
-        const handleClose = (key, keyPath) => {
-            console.log(key, keyPath)
+
+        const menuSelect = (index: any, path: any) => {
+            console.log(index,'index',path,'path')
+            localStorage.setItem('menuId', JSON.stringify(index))
         }
-        return {handleOpen, handleClose, isCollapse}
+
+        const routerPath = (value: string) => {
+            console.log(value)
+            router.push({path: value})
+        }
+
+        onMounted(() => {
+            //@ts-ignore
+            menuIndex.value =  JSON.parse(localStorage.getItem('menuId'))
+        })
+
+        const loginOut = () => {
+            // 清空token
+            window.sessionStorage.clear()
+            // 跳转到登录页
+            router.push('/login')
+        }
+
+        return { isCollapse, navigationDataList, navigationShow, circleUrl, menuSelect, menuIndex, routerPath, loginOut}
     }
 }
 </script>
@@ -79,22 +107,55 @@ export default {
     width: 100%;
     height: 100%;
 }
+.class {
+    width: 64px;
+}
 .el-container {
     width: 100%;
     height: 100%;
 }
 .el-header {
-    padding: 0;
+    padding: 10px 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
     /* background-color: aqua; */
 }
+
+.boxCard {
+    height: 93%;
+}
+.el-menu {
+    /* border-right: 0; */
+}
+
+.dropdownRight .el-avatar--circle {
+    --el-avatar-size: 40px !important;
+}
+
+.el-header .el-col {
+  border-radius: 4px;
+}
+
+.el-header .grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+
 .el-main {
-    background: chocolate;
+    padding: 10px;
+    /* background: chocolate; */
 }
 .el-aside {
     /* background: greenyellow; */
 }
+
+.paddingLeft {
+    padding-left: 0 !important;
+}
 .el-footer {
-    background-color: blue;
+    /* height: 50px; */
+    /* background-color: blue; */
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;

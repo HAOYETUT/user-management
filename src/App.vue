@@ -11,4 +11,8 @@ body,
   width: 100%;
   height: 100%;
 }
+.operation-display {
+  display: flex !important;
+  justify-content: flex-end;
+}
 </style>
