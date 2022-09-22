@@ -34,7 +34,7 @@ import { songData, songColumn, usetableBtn } from '@/utils/virtual-data';
 import SongForm from "../song-form/index.vue";
 import { reactive, ref } from 'vue';
 export default {
-    name: "songList",
+    name: "SongList",
     components: { Table, SongForm },
     setup() {
         const formInline = reactive({
@@ -44,7 +44,6 @@ export default {
         const drowShow = ref(false)
         const drowTitle = ref('新增音乐')
         const operation = (click: string) => {
-            console.log(click)
             if (click == 'edit' || click == 'add') {
                 drowShow.value = true
                 drowTitle.value = click == 'edit'? '编辑音乐' : '新增音乐'

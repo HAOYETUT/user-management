@@ -29,7 +29,7 @@ import Table from '@/components/table.vue'
 import { mvData, mvColumn, usetableBtn } from '@/utils/virtual-data';
 import { reactive } from 'vue';
 export default {
-    name: "mvList",
+    name: "MvList",
     components: { Table },
     setup() {
         const formInline = reactive({

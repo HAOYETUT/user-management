@@ -28,9 +28,7 @@ export default {
     props: ['drawer'],
     components: {},
     setup(props: any) {
-        // console.log(drawer)
         const {drawer} = props as ({drawer: any})
-        console.log(drawer,'drawer')
         const {drowShow,title,direction} = drawer as ({drowShow: boolean,title: string, direction: string})
         return {drowShow, title, direction}
     }

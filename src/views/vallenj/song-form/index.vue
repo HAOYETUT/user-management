@@ -28,7 +28,6 @@ export default {
     props: ['drowShow', 'title', 'direction'],
     components: {},
     setup(props: any) {
-        console.log(props,'props')
         // debugger
         const {drowShow = false, title, direction = 'rtl'} = props as ({drowShow: boolean, title: string, direction: string})
         return { drowShow, title, direction }

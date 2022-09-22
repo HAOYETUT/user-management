@@ -1,6 +1,7 @@
 <template>
     <div class="table">
         <el-table
+            border
             ref="multipleTableRef"
             :loading="loading"
             style="width: 100%;"
@@ -52,7 +53,6 @@ export default {
     components: {},
     props: ['tableData', 'column', 'tableSearch', 'tableButton', 'tableForm'],
     setup(props: any) {
-        console.log(props,'props')
         const loading = ref(true)
         const {tableData = [], column = []} = props as ({tableData: any[], column: any[]})
         

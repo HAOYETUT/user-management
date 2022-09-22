@@ -18,16 +18,20 @@ const routes = [
     children: [
       {
         path: '/use-ist',
-        name: 'useList',
+        name: 'UseList',
         component: () => import('../views/use/use-list/index.vue'),
       }, {
         path: '/mv-ist',
-        name: 'mvList',
+        name: 'MvList',
         component: () => import('../views/vallenj/mv-list/index.vue'),
       }, {
         path: '/song-ist',
-        name: 'songList',
+        name: 'SongList',
         component: () => import('../views/vallenj/song-list/index.vue'),
+      }, {
+        path: '/member-list',
+        name: 'MemberList',
+        component: () => import('../views/structure/member-list/index.vue'),
       }
     ]
   },

@@ -35,7 +35,7 @@ import { tableData, column, usetableSearch, usetableBtn } from '@/utils/virtual-
 
 import { ref, reactive } from 'vue';
 export default {
-    name: "useList",
+    name: "UseList",
     components: {Table, UseForm},
     setup() {
         const formInline = reactive({
@@ -53,7 +53,6 @@ export default {
                 drawer.drowShows = true
                 drawer.drowTitle = click == 'edit'? '编辑音乐' : '新增音乐'
             }
-            console.log(drawer)
         }
         
         return {tableData, column, usetableSearch, drawer, usetableBtn, formInline, operation}

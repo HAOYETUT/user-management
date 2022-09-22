@@ -82,7 +82,6 @@ export default {
         }
 
         const routerPath = (value: string) => {
-            console.log(value)
             router.push({path: value})
         }
 
@@ -127,6 +126,7 @@ export default {
 }
 
 .boxCard {
+    position: relative;
     height: 93%;
 }
 .el-menu {

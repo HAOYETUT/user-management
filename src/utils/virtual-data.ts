@@ -27,8 +27,18 @@ export const navigationData = [
         id: '3',
         path: '',
         icon: '',
-        title: '管理员',
-        children:[]
+        title: '组织架构',
+        children:[
+            {
+                id: '3-1',
+                path: '/member-list',
+                title: '成员列表',
+            }, {
+                id: '3-2',
+                path: '/role-ist',
+                title: '角色列表',
+            },
+        ]
     }, {
         id: '4',
         path: '',
