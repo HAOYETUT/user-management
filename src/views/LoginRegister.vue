@@ -131,7 +131,7 @@ export default {
             setTimeout(()=>{
                 ElMessage.success('success')
                 window.sessionStorage.setItem('token','sucess')
-                router.push('/index')
+                router.push('/layout')
                 signUpLoding.value = false
                 hideLoading()
               },2000)

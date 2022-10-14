@@ -8,7 +8,7 @@ import createStore from '@/router/index'
 import { message } from '@/utils/message'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
-
+import 'font-awesome/css/font-awesome.min.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import baseComponents from '@/components/Common'
 // import * as filters from '@/filters'

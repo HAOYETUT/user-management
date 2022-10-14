@@ -5,6 +5,7 @@ import TableLayout from './TableLayout/index.vue'
 // import DrawerLayout from './DrawerLayout'
 import SearchItem from './SearchItem/index.vue'
 // import TableColTool from './TableColTool'
+// require('./node_modules/[email protected]@font-awesome/css/font-awesome.min.css');
 const components = [
   SimpleSearch,
   SearchItem,
