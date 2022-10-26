@@ -5,6 +5,7 @@
             <el-col :span="18">
             <div class="flex">
                     <p class="header-title"><i>小哪吒影音网</i></p>
+                    
                     <div>
                         <el-dropdown :hide-on-click="false" class="dropdownRight">
                             <el-avatar :size="50" :src="circleUrl" />
@@ -49,8 +50,8 @@ const loginOut = () => {
 .body-all {
     width: 100%;
     height: 100%;
-    background: url(@/assets/background-title.jpg) no-repeat;
-    background-size: 100% 100%;
+    /* background: url(@/assets/background-title.jpg) no-repeat;
+    background-size: 100% 100%; */
     overflow: hidden;
 }
 .flex {
@@ -67,7 +68,7 @@ const loginOut = () => {
     justify-content: space-between;
 }
 .header-title {
-    color: #fff;
+    /* color: #fff; */
     line-height: 50px;
     font-family: '仿宋';
 }
